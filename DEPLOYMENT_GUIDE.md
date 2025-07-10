@@ -30,13 +30,9 @@ npm run dev
    - Choose "Project"
 
 3. **Import Git Repository**
-   - If your code is on GitHub/GitLab/Bitbucket:
-     - Connect your Git provider
-     - Select this repository
-   
-   - If you need to upload the code:
-     - You can drag and drop the project folder
-     - Or use the "Browse" option to select the project folder
+   - Connect your GitHub account if not already connected
+   - Import from GitHub: `https://github.com/yousribouhamed/ahoy.git`
+   - Select the repository: `yousribouhamed/ahoy`
 
 4. **Project Configuration**
    - **Framework Preset**: Vercel will auto-detect "Next.js"
@@ -129,8 +125,17 @@ spotlight-app/
 3. Check that all imports use correct paths
 
 ## Support
+- **GitHub Repository**: https://github.com/yousribouhamed/ahoy.git
 - Local dev server: `http://localhost:3000`
 - Contact page: `http://localhost:3000/contact`
 - All components are working and tested locally
 
 Your project is now ready for deployment! 🚀
+
+## Quick Deployment Steps Summary
+
+1. **Go to**: https://vercel.com
+2. **Click**: "New Project"
+3. **Import**: `https://github.com/yousribouhamed/ahoy.git`
+4. **Deploy**: Click "Deploy" (Vercel will auto-detect Next.js)
+5. **Done**: Your site will be live in 2-3 minutes!
