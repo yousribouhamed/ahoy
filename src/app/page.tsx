@@ -147,8 +147,8 @@ export default function Home() {
 </FadeContent>
       
 <div ref={variableProximityRef}>
-<FadeContent blur={true} duration={1800} delay={400} className="mx-auto mt-32 gap-16 flex z-10 max-w-7xl px-8">
-  <h2 className="text-white text-8xl text-right font-ghapter"> 
+<FadeContent blur={true} duration={1800} delay={400} className="mx-auto mt-32 flex-row lg:flex md:flex gap-16 z-10 max-w-7xl px-8">
+  <h2 className="text-white text-8xl lg:text-8xl text-right font-ghapter"> 
     What we do?
   </h2>
   <div>

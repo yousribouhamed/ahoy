@@ -13,6 +13,14 @@ import { useEffect, useState } from "react";
 
 export default function Contact() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
 
   useEffect(() => {
     // Prevent flash by ensuring components are mounted
@@ -22,6 +30,51 @@ export default function Contact() {
     
     return () => clearTimeout(timer);
   }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+
+    try {
+      const response = await fetch('https://formspree.io/f/myzjrekj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        // Reset form after successful submission
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          message: ''
+        });
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => setFormStatus('idle'), 5000);
+      } else {
+        setFormStatus('error');
+        // Auto-hide error message after 5 seconds
+        setTimeout(() => setFormStatus('idle'), 5000);
+      }
+    } catch (error) {
+      setFormStatus('error');
+      // Auto-hide error message after 5 seconds
+      setTimeout(() => setFormStatus('idle'), 5000);
+    }
+  };
 
   if (!isLoaded) {
     return (
@@ -52,12 +105,9 @@ export default function Contact() {
           
           {/* Contact Header */}
           <div className="mx-auto mt-6 max-w-4xl text-center">
-            <SplitTextGSAP 
-              text="Get In Touch"
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-200 font-ghapter"
-              delay={10}
-              duration={0.5}
-            />
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-200 font-ghapter">
+              Get In Touch
+            </h1>
           </div>
           
           <div className="mx-auto mt-4 max-w-lg text-center text-base font-normal text-neutral-300">
@@ -78,62 +128,138 @@ export default function Contact() {
                 </h3>
               </BlurReveal>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <BlurReveal delay={0.6}>
-                  <div className="space-y-4">
-                    <label className="block text-sm font-medium text-gray-300">
-                      First Name
-                    </label>
-                    <Input type="text" placeholder="Your first name" />
-                  </div>
-                </BlurReveal>
-                
-                <BlurReveal delay={0.7}>
-                  <div className="space-y-4">
-                    <label className="block text-sm font-medium text-gray-300">
-                      Last Name
-                    </label>
-                    <Input type="text" placeholder="Your last name" />
-                  </div>
-                </BlurReveal>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <BlurReveal delay={0.8}>
-                  <div className="space-y-4">
-                    <label className="block text-sm font-medium text-gray-300">
-                      Email Address
-                    </label>
-                    <Input type="email" placeholder="your.email@example.com" />
-                  </div>
-                </BlurReveal>
-                
-                <BlurReveal delay={0.9}>
-                  <div className="space-y-4">
-                    <label className="block text-sm font-medium text-gray-300">
-                      Phone Number
-                    </label>
-                    <Input type="tel" placeholder="+1 (555) 123-4567" />
-                  </div>
-                </BlurReveal>
-              </div>
-              
-              <BlurReveal className="w-full" delay={1.0}>
-                <div className="space-y-4 w-full">
-                  <label className="block text-sm font-medium text-gray-300">
-                    Message
-                  </label>
-                  <Textarea
-                    className="min-h-[120px] text-white bg-neutral-950 border-neutral-700 w-full"
-                    placeholder="Tell us about your project and how we can help..."
-                  />
-                  <div className="flex justify-center pt-2">
-                    <button className="font-semibold font-ghapter px-8 py-3 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200 w-full md:w-auto">
-                      Send Message
-                    </button>
+              {/* Status Messages */}
+              {formStatus === 'success' && (
+                <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg">
+                  <div className="flex items-center">
+                    <svg className="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <p className="text-green-300 font-medium">Thank you! Your message has been sent successfully.</p>
                   </div>
                 </div>
-              </BlurReveal>
+              )}
+              
+              {formStatus === 'error' && (
+                <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
+                  <div className="flex items-center">
+                    <svg className="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <p className="text-red-300 font-medium">Sorry, there was an error sending your message. Please try again.</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Custom Form with JavaScript Handling */}
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <BlurReveal delay={0.6}>
+                    <div className="space-y-4">
+                      <label htmlFor="firstName" className="block text-sm font-medium text-gray-300">
+                        First Name
+                      </label>
+                      <Input 
+                        id="firstName"
+                        name="firstName" 
+                        type="text" 
+                        placeholder="Your first name" 
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        required 
+                      />
+                    </div>
+                  </BlurReveal>
+                  
+                  <BlurReveal delay={0.7}>
+                    <div className="space-y-4">
+                      <label htmlFor="lastName" className="block text-sm font-medium text-gray-300">
+                        Last Name
+                      </label>
+                      <Input 
+                        id="lastName"
+                        name="lastName" 
+                        type="text" 
+                        placeholder="Your last name" 
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        required 
+                      />
+                    </div>
+                  </BlurReveal>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <BlurReveal delay={0.8}>
+                    <div className="space-y-4">
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                        Email Address
+                      </label>
+                      <Input 
+                        id="email"
+                        name="email" 
+                        type="email" 
+                        placeholder="your.email@example.com" 
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required 
+                      />
+                    </div>
+                  </BlurReveal>
+                  
+                  <BlurReveal delay={0.9}>
+                    <div className="space-y-4">
+                      <label htmlFor="phone" className="block text-sm font-medium text-gray-300">
+                        Phone Number
+                      </label>
+                      <Input 
+                        id="phone"
+                        name="phone" 
+                        type="tel" 
+                        placeholder="+1 (555) 123-4567" 
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </BlurReveal>
+                </div>
+                
+                <BlurReveal className="w-full" delay={1.0}>
+                  <div className="space-y-4 w-full">
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-300">
+                      Message
+                    </label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      className="min-h-[120px] text-white bg-neutral-950 border-neutral-700 w-full"
+                      placeholder="Tell us about your project and how we can help..."
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                    />
+                    <div className="flex justify-center pt-2">
+                      <button 
+                        type="submit"
+                        disabled={formStatus === 'submitting'}
+                        className="font-semibold font-ghapter px-8 py-3 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200 w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {formStatus === 'submitting' ? (
+                          <span className="flex items-center">
+                            <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Sending...
+                          </span>
+                        ) : (
+                          'Send Message'
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </BlurReveal>
+              </form>
               
             </div>
           </FadeContent>

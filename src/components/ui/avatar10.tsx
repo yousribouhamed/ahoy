@@ -9,7 +9,7 @@ export default function Avatar10() {
         <div className="flex items-center justify-center gap-4">
           {/* Avatars Row */}
           <div className="flex items-center">
-            <div className="h-[50px] w-[50px] rounded-full border-4 border-gray-800 dark:border-gray-700">
+            <div className="h-[50px] w-[50px] rounded-full border-transparent border-gray-800 dark:border-gray-700">
               <img
                 src="https://cdn.tailgrids.com/assets/images/core-components/avatar/image-01.jpg"
                 alt="avatar"
