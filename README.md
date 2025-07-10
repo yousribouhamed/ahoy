@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AHOY Spotlight App
 
-## Getting Started
+A modern Next.js application featuring a stunning landing page and contact form with advanced animations and effects.
 
-First, run the development server:
+## 🚀 Features
+
+- **Modern Landing Page** with spotlight effects and grid background
+- **Responsive Contact Form** with animated reveals
+- **Custom UI Components** including infinite ribbon animation
+- **Dark Theme** with gradient effects and blur backgrounds
+- **Full TypeScript Support**
+- **Tailwind CSS** for styling
+- **GSAP Animations** for smooth interactions
+
+## 🛠️ Tech Stack
+
+- **Next.js 15.3.5** (App Router)
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS 4**
+- **GSAP** for animations
+- **Framer Motion** for additional effects
+
+## 📱 Pages
+
+- **Home** (`/`) - Landing page with spotlight and hero section
+- **Contact** (`/contact`) - Contact form with company information
+
+## 🔧 Local Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌐 Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project is ready for deployment on Vercel. See `DEPLOYMENT_GUIDE.md` for detailed instructions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+src/
+├── app/                 # Next.js App Router pages
+│   ├── page.tsx        # Home page
+│   ├── contact/        # Contact page
+│   ├── layout.tsx      # Root layout
+│   └── globals.css     # Global styles
+├── components/         # React components
+│   └── ui/            # UI components
+└── lib/               # Utility functions
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🎨 Design Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Responsive Grid Layout** for form fields
+- **Animated Text Reveals** using GSAP
+- **Blur Effects** and backdrop filters
+- **Gradient Buttons** and interactive elements
+- **Mobile-First Design** approach
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📞 Contact Information
 
-## Deploy on Vercel
+The contact form includes fields for:
+- First Name & Last Name
+- Email Address & Phone Number
+- Message (full-width textarea)
+- Send Message button
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ using Next.js and modern web technologies.
