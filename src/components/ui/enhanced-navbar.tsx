@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 export default function EnhancedNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mobileEcosystemOpen, setMobileEcosystemOpen] = useState(false);
+  const [mobileCommunityOpen, setMobileCommunityOpen] = useState(false);
 
   return (
     <nav className="bg-transparent border-gray-200 shadow-sm">
@@ -16,9 +18,9 @@ export default function EnhancedNavbar() {
         {/* Mobile menu button and CTA */}
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <div className="flex justify-center">
-            <button className="font-semibold font-ghapter px-8 py-2 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200">
+            <a href="/contact" className="font-semibold font-ghapter px-8 py-2 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200">
               Get Started
-            </button>
+            </a>
           </div>
           <button
             data-collapse-toggle="navbar-cta"
@@ -26,7 +28,14 @@ export default function EnhancedNavbar() {
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600"
             aria-controls="navbar-cta"
             aria-expanded="false"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => {
+              setIsMenuOpen(!isMenuOpen);
+              // Close mobile dropdowns when menu is toggled
+              if (isMenuOpen) {
+                setMobileEcosystemOpen(false);
+                setMobileCommunityOpen(false);
+              }
+            }}
           >
             <span className="sr-only">Open main menu</span>
             <svg
@@ -82,13 +91,24 @@ export default function EnhancedNavbar() {
             </li>
             <li className="relative group">
               <div
-                className="block py-2 px-3 md:p-0 text-white hover:bg-gradient-to-r hover:from-blue-400 hover:via-purple-500 hover:to-pink-500 hover:bg-clip-text hover:text-transparent hover:animate-pulse rounded transition-all duration-300 md:hover:bg-transparent cursor-pointer"
+                className="flex items-center justify-between py-2 px-3 md:p-0 text-white hover:bg-gradient-to-r hover:from-blue-400 hover:via-purple-500 hover:to-pink-500 hover:bg-clip-text hover:text-transparent hover:animate-pulse rounded transition-all duration-300 md:hover:bg-transparent cursor-pointer"
                 onMouseEnter={() => {}}
+                onClick={() => setMobileEcosystemOpen(!mobileEcosystemOpen)}
               >
-                Ecosystem
+                <span>Ecosystem</span>
+                {/* Mobile dropdown arrow - only visible on mobile */}
+                <svg 
+                  className={`w-4 h-4 transition-transform duration-200 md:hidden ${mobileEcosystemOpen ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
               </div>
-              {/* Hover Dropdown */}
-              <div className="absolute left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              
+              {/* Desktop Hover Dropdown - hidden on mobile */}
+              <div className="absolute left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 hidden md:block">
                 <div className="bg-black/90 backdrop-blur-sm border border-gray-700 rounded-xl shadow-xl divide-y divide-white/5">
                   <div className="p-3">
                     <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#partners">
@@ -102,13 +122,17 @@ export default function EnhancedNavbar() {
                     </a>
                     <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
                       <p className="font-semibold text-white">Center Of Excellence</p>
-                    </a><a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
                       <p className="font-semibold text-white">Bellman Media</p>
-                    </a><a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
                       <p className="font-semibold text-white">EpicMetry</p>
-                    </a><a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
                       <p className="font-semibold text-white">GotsDone</p>
-                    </a><a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
                       <p className="font-semibold text-white">Flatgigs</p>
                     </a>
                     <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#marketplace">
@@ -117,21 +141,68 @@ export default function EnhancedNavbar() {
                     <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#marketplace">
                       <p className="font-semibold text-white">Consolidid</p>
                     </a>
-                    
                   </div>
-                
                 </div>
               </div>
+              
+              {/* Mobile Click Dropdown - only visible on mobile */}
+              {mobileEcosystemOpen && (
+                <div className="md:hidden mt-2 bg-gray-800 rounded-lg border border-gray-700">
+                  <div className="p-2 space-y-1">
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#partners">
+                      <p className="font-semibold text-white">TrouveLabs</p>                  
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                      <p className="font-semibold text-white">EpicMetry</p>
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#marketplace">
+                      <p className="font-semibold text-white">Dulters</p>
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                      <p className="font-semibold text-white">Center Of Excellence</p>
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                      <p className="font-semibold text-white">Bellman Media</p>
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                      <p className="font-semibold text-white">EpicMetry</p>
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                      <p className="font-semibold text-white">GotsDone</p>
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#developers">
+                      <p className="font-semibold text-white">Flatgigs</p>
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#marketplace">
+                      <p className="font-semibold text-white">Actual VC</p>
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#marketplace">
+                      <p className="font-semibold text-white">Consolidid</p>
+                    </a>
+                  </div>
+                </div>
+              )}
             </li>
             <li className="relative group">
               <div
-                className="block py-2 px-3 md:p-0 text-white hover:bg-gradient-to-r hover:from-blue-400 hover:via-purple-500 hover:to-pink-500 hover:bg-clip-text hover:text-transparent hover:animate-pulse rounded transition-all duration-300 md:hover:bg-transparent cursor-pointer"
+                className="flex items-center justify-between py-2 px-3 md:p-0 text-white hover:bg-gradient-to-r hover:from-blue-400 hover:via-purple-500 hover:to-pink-500 hover:bg-clip-text hover:text-transparent hover:animate-pulse rounded transition-all duration-300 md:hover:bg-transparent cursor-pointer"
                 onMouseEnter={() => {}}
+                onClick={() => setMobileCommunityOpen(!mobileCommunityOpen)}
               >
-                Community
+                <span>Community</span>
+                {/* Mobile dropdown arrow - only visible on mobile */}
+                <svg 
+                  className={`w-4 h-4 transition-transform duration-200 md:hidden ${mobileCommunityOpen ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
               </div>
-              {/* Hover Dropdown */}
-              <div className="absolute left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              
+              {/* Desktop Hover Dropdown - hidden on mobile */}
+              <div className="absolute left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 hidden md:block">
                 <div className="bg-black/90 backdrop-blur-sm border border-gray-700 rounded-xl shadow-xl divide-y divide-white/5">
                   <div className="p-3">
                     <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#24six9">
@@ -143,6 +214,20 @@ export default function EnhancedNavbar() {
                   </div>
                 </div>
               </div>
+              
+              {/* Mobile Click Dropdown - only visible on mobile */}
+              {mobileCommunityOpen && (
+                <div className="md:hidden mt-2 bg-gray-800 rounded-lg border border-gray-700">
+                  <div className="p-2 space-y-1">
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#24six9">
+                      <p className="font-semibold text-white">24six9</p>                  
+                    </a>
+                    <a className="block rounded-lg px-3 py-2 transition hover:bg-white/5" href="#sourcehive">
+                      <p className="font-semibold text-white">sourcehive</p>
+                    </a>
+                  </div>
+                </div>
+              )}
             </li>
             <li>
               <a

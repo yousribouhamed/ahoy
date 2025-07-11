@@ -92,9 +92,9 @@ export default function Home() {
           
           {/* Gradient Button */}
           <div className="flex justify-center mt-8">
-            <button className="font-semibold font-ghapter px-8 py-2 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200">
+            <a href="/contact" className="font-semibold font-ghapter px-8 py-2 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200">
               Get Started
-            </button>
+            </a>
           </div>
           
     
@@ -110,7 +110,7 @@ export default function Home() {
       
       
 
-<FadeContent blur={false} duration={1500} delay={200} className="border-1 bg-gradient-to-l bg-neutral-800 to-neutral-900 mt-32 rounded-4xl py-8 px-8 mx-auto max-w-7xl z-10 flex flex-col lg:flex-row items-center gap-8">
+<FadeContent blur={false} duration={1500} delay={200} className="border-1 bg-gradient-to-l bg-neutral-800 to-neutral-900 mt-32 rounded-4xl py-8 px-8 mx-4 md:mx-auto max-w-7xl z-10 flex flex-col lg:flex-row items-center gap-8">
   
   <div className="h-full lg:w-2/3">
   <ScrollFloat 

@@ -105,9 +105,12 @@ export default function Contact() {
           
           {/* Contact Header */}
           <div className="mx-auto mt-6 max-w-4xl text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-200 font-ghapter">
-              Get In Touch
-            </h1>
+            <SplitTextGSAP 
+              text="Get In Touch"
+              className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-200 font-ghapter"
+              delay={10}
+              duration={0.5}
+            />
           </div>
           
           <div className="mx-auto mt-4 max-w-lg text-center text-base font-normal text-neutral-300">
@@ -291,20 +294,6 @@ export default function Contact() {
                   <p className="text-gray-400">(+971) 4 876 9396</p>
                 </div>
               </BlurReveal>
-              
-              <BlurReveal delay={1.4}>
-                <div className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-xl p-6 text-center">
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <h4 className="text-lg font-semibold text-white mb-2">Social Media</h4>
-                  <p className="text-gray-400">San Francisco, CA</p>
-                </div>
-              </BlurReveal>
-              
             </div>
           </FadeContent>
           
