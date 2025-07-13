@@ -8,7 +8,7 @@ import { BlurReveal } from "@/components/ui/blur-reveal";
 import Footer from "@/components/ui/footer";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import SplitTextGSAP from "@/components/ui/split-text-gsap";
+import ContactHeading from "./ContactHeading";
 import { useEffect, useState } from "react";
 
 export default function Contact() {
@@ -104,14 +104,7 @@ export default function Contact() {
         <div className="relative z-10 mx-auto w-full max-w-7xl p-4 pt-20 md:pt-0">
           
           {/* Contact Header */}
-          <div className="mx-auto mt-6 max-w-4xl text-center">
-            <SplitTextGSAP 
-              text="Get In Touch"
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-200 font-ghapter"
-              delay={10}
-              duration={0.5}
-            />
-          </div>
+          <ContactHeading />
           
           <div className="mx-auto mt-4 max-w-lg text-center text-base font-normal text-neutral-300">
             <BlurReveal delay={0.3}>
